@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { fakeListings } from '../fake-data';
 import { Listing } from '../types';
+import { ListingsService } from '../listings.service';
 
 @Component({
   selector: 'app-listing-page',
@@ -10,10 +10,13 @@ import { Listing } from '../types';
 export class ListingPageComponent implements OnInit {
   listings: Listing[] = [];
 
-  constructor() { }
+  constructor(
+    private listingService: ListingsService,
+  ) { }
 
   ngOnInit(): void {
-    this.listings = fakeListings;
+    this.listingService.getListings()
+      .subscribe(listings => this.listings = listings)
   }
 
 }
